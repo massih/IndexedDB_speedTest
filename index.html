@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IndexedDB Speed Tester</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- <link rel="icon" type="image/png" href="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" /> -->
+		
+
+		<link rel="stylesheet" href="./css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="./css/my_css.css">
+
+		<script src="./js/jquery-2.0.3.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
+		<script src="./js/my_js.js"></script>
+		<script src="./js/db.js"></script>
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="span12 text-center">
+					<h2 style="color: #8e9296">IndexedDB speed test</h2>
+				</div>
+			</div>
+
+			<div class="row"  id="">
+				<div class="span2">
+					<p class="text-left"><strong><i class="icon-cog icon-white"></i> Test settings:</strong></p>
+				</div>
+				<div class="span3" style="background-color: #272b30;" id="test-settings-div">
+					<form style="padding: 15px;">
+						<fieldset>
+							<label class="checkbox"><input type="checkbox" id="ins" > 25,000 insert </label>
+							<label class="checkbox"><input type="checkbox" id="ins-indexed" checked> 25,000 insert in an indexed table </label>
+							<label class="checkbox"><input type="checkbox" id="sel"> 100 select</label>
+							<label class="checkbox"><input type="checkbox" id="sel-indexed"> 100 select from an indexed table </label>
+							<label class="checkbox"><input type="checkbox" id="upd"> 100 update </label>
+							<label class="checkbox"><input type="checkbox" id="upd-indexed"> 100 update from an indexed table </label>
+							<label class="checkbox"><input type="checkbox" id="del"> 100 delete </label>
+							<label class="checkbox"><input type="checkbox" id="del-indexed"> 100 delete from an indexed table </label>
+
+						</fieldset>
+					</form>
+				</div>
+				<div class="span2 offset1">
+					<p class="text-left"><i class="icon-list icon-white"></i><strong> Test log :</strong></p>
+				</div>
+				<div class="span4">
+					<textarea id="logTArea" rows="8" style="background-color: #1c1e22;resize: none;color: #FFFFFF;font-size: 90%" disabled></textarea>
+				</div>
+			</div>
+			<div style="width: 200px;display:block; margin-left: auto;margin-right: auto;margin-top: 5%;">
+				<div style="margin: auto;" id="startButton"> <a href="#"><img src="./img/black-start-btn.png" /></a> </div>
+			</div>
+		</div>
+	</body>
+</html>

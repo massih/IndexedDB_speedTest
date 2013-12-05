@@ -1,0 +1,23 @@
+@font-face {
+	font-family: Roboto;
+	src: url('./font/Roboto-Thin.ttf');
+}
+
+body {
+	background-color: #1c1e22;
+	/*font-family: Roboto;
+	font-weight: normal;*/
+	color: #FFFFFF;
+	font-family: "Roboto";
+}
+
+#startButton{
+	/*background-color: #272b30;*/
+	width:100px;
+	text-align:center;
+	/*border:2px solid;
+	border-color: #8684A4;
+	padding: 2px;*/
+	/*border-radius: 50%;*/
+	
+}
