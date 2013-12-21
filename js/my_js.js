@@ -3,17 +3,14 @@ var $test_log_area;
 var $test_fields;
 var $process_time = [];
 var $temp;
+var $content;
+
+
 $(document).ready(function() {
-	// console.log( "ready!" );
-	// $("#startButton").height($("#startButton").width());
 	$test_log_area = $("#logTArea");
 	open_db();
 	$("#startButton").click(function() {
-		$test_fields = $("#test-settings-div input:checkbox:checked");
-		test_log($test_fields.length + " Test(s) selected !!!");
-		test_log("Starting the tests !");
-		$temp = $test_fields.first().attr('id'); 
-		check_test_settings($temp);
+		var $content = read_content();
 	});
 
 });
@@ -63,8 +60,9 @@ function test_log() {
 				for (x in $process_time) {
 					avg = avg + $process_time[x];
 				}
-				$test_log_area.append("AVERAGE: " + (avg / 10));
+				$test_log_area.append("AVERAGE: " + (avg / $process_time.length)+"\n");
 				$test_log_area.scrollTop($("#logTArea")[0].scrollHeight);
+				$process_time = [];
 			} else {
 				check_test_settings($temp);
 			}
@@ -81,9 +79,38 @@ function test_log() {
 	}
 }
 
-// function test_log(time,txt){
-// $test_log_area.append(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()+":"+time.getMilliseconds()+" "+txt+"\n");
-// $test_log_area.scrollTop($("#logTArea")[0].scrollHeight);
-// // $('#textarea_id').scrollTop($('#textarea_id')[0].scrollHeight);
-// }
+function read_content() {
+	if(!$content || $("#test-setting-size :selected").attr('size') != $content.length){
+		$content = [];
+		var file = "./data/"+$("#test-setting-size :selected").val()+".json";
+		var json = $.getJSON(file, function(data) {
+			$.each(data, function(row) {
+				$content.push(data[row]);
+			});
+		}).done(function(data) {
+			start_the_test();
+			// $test_fields = $("#test-settings-div input:checkbox:checked");
+			// test_log($test_fields.length + " Test(s) selected !!!");
+			// test_log("Starting the test(s)!");
+			// $temp = $test_fields.first().attr('id');
+			// check_test_settings($temp);
+		});
+	}else{
+		start_the_test();
+		// $test_fields = $("#test-settings-div input:checkbox:checked");
+		// test_log($test_fields.length + " Test(s) selected !!!");
+		// test_log("Starting the test(s)!");
+		// $temp = $test_fields.first().attr('id');
+		// check_test_settings($temp);
+	}
+}
+
+function start_the_test(){
+	$test_fields = $("#test-settings-div input:checkbox:checked");
+	test_log($test_fields.length + " Test(s) selected !!!");
+	test_log("Starting the test(s)!");
+	$temp = $test_fields.first().attr('id');
+	check_test_settings($temp);
+
+}
 
