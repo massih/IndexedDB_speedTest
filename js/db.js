@@ -55,7 +55,6 @@ function open_db() {
 }
 
 function insert_test(obj) {
-	// var items = [];
 	var text = (obj == "indexed") ? "Indexed " : "";
 	var objStore = db.transaction([obj], "readwrite").objectStore(obj);
 	var req = objStore.clear();
@@ -72,27 +71,20 @@ function insert_test(obj) {
 				test_end = new Date();
 				test_log(text + "INSERT test finished", test_end);
 				test_log(text + "INSERT done in ", test_start, test_end);
-				// if($test_fields.length > 1){
-				// }
+				
 			}
 		}
 
 	};
-
-	// var json = $.getJSON("./data/3000Row.json", function(data) {
-		// $.each(data, function(row) {
-			// items.push(data[row]);
-		// });
-	// }).done(function(data) {
-	// });
 }
 
 function select_test() {
 	var objStore = db.transaction("not_indexed").objectStore("not_indexed");
+	var cursorReqs = [],cursorDoneCount = 0;
 	test_start = new Date();
 	test_log("SELECT test started", test_start);
 	select_data(0,$content.length);
-	
+
 	function select_data(i,length){
 		if(i<length){
 			var boundKeyRange = IDBKeyRange.bound(i,i+100, false, true);
@@ -155,7 +147,7 @@ function update_test() {
 			objStore.openCursor(boundKeyRange).onsuccess = function(event) {
 				var cursor = event.target.result;
 				if (cursor) {
-					cursor.value.tel = cursor.value.tel + "-updated";
+					cursor.value.tel = "-updated";
 					objStore.put(cursor.value);
 					cursor.continue();
 				} else {
@@ -182,7 +174,7 @@ function update_indexed_test() {
 			objStore.index("pid").openCursor(boundKeyRange).onsuccess = function(event) {
 				var cursor = event.target.result;
 				if (cursor) {
-					cursor.value.tel = cursor.value.tel + "-updated";
+					cursor.value.tel = "-updated";
 					objStore.put(cursor.value);
 					cursor.continue();
 				} else {
